@@ -13,13 +13,16 @@ import {
 import type { Database } from "@/lib/schema";
 import Image from "next/image";
 import { useState } from "react";
-// import sessionId from "./page";
+import EditSpeciesDialog from "./edit-species-dialog";
 type Species = Database["public"]["Tables"]["species"]["Row"];
-// import EditSpeciesDialog from "./edit-species-dialog";
 
-export default function DisplaySpeciesDialog({ dispSpecies }: { dispSpecies: Species }) {
+export default function DisplaySpeciesDialog(props: { speciesInfo: Species; curUser: string }) {
   // Control open/closed state of the dialog
   const [open, setOpen] = useState<boolean>(false);
+
+  const dispSpecies = props.speciesInfo;
+
+  const sessionId = props.curUser;
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -39,11 +42,7 @@ export default function DisplaySpeciesDialog({ dispSpecies }: { dispSpecies: Spe
         <p>Total population: {dispSpecies.total_population}</p>
         <p>Kingdom: {dispSpecies.kingdom}</p>
         <p>Description: {dispSpecies.description}</p>
-
-        {/* if(sessionId == dispSpecies.author) {
-          <EditSpeciesDialog />
-        } */}
-
+        if (sessionId == dispSpecies.author) {<EditSpeciesDialog speciesEdit={dispSpecies} />}
         <DialogClose asChild>
           <Button type="button" className="ml-1 mr-1 flex-auto" variant="secondary">
             Close
