@@ -13,9 +13,9 @@ import {
 import type { Database } from "@/lib/schema";
 import Image from "next/image";
 import { useState } from "react";
+import EditSpeciesDialog from "./edit-species-dialog";
 // import sessionId from "./page";
 type Species = Database["public"]["Tables"]["species"]["Row"];
-// import EditSpeciesDialog from "./edit-species-dialog";
 
 export default function DisplaySpeciesDialog({ dispSpecies }: { dispSpecies: Species }) {
   // Control open/closed state of the dialog
@@ -43,7 +43,7 @@ export default function DisplaySpeciesDialog({ dispSpecies }: { dispSpecies: Spe
         {/* if(sessionId == dispSpecies.author) {
           <EditSpeciesDialog />
         } */}
-
+        <EditSpeciesDialog speciesEdit={dispSpecies} />
         <DialogClose asChild>
           <Button type="button" className="ml-1 mr-1 flex-auto" variant="secondary">
             Close
